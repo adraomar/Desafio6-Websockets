@@ -25,13 +25,18 @@ socketClient.on("productsAll", async (data) => {
 })
 
 const chatSystem = document.getElementById("chatSystem");
-
 socketClient.on("srvMessage", (data) => {
     let messages = "";
+    let hoy = new Date();
+    let fecha = hoy.getDate() + '-' + ( hoy.getMonth() + 1 ) + '-' + hoy.getFullYear();
+    let hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
+    let fechaYHora = fecha + ' ' + hora;
     data.forEach(element => {
         messages += `<div class="card">
         <div class="card-header d-flex justify-content-between p-3">
-            ${element.author}
+        <p>
+            <span style="color: blue">${element.author}</span> - <span style="color: brown">[${fechaYHora}]</span>
+        </p>    
         </div>
         <div class="card-body">
             <p class="card-text">${element.text}</p>
@@ -42,23 +47,11 @@ socketClient.on("srvMessage", (data) => {
     chatContainer.innerHTML = messages;
 })
 
-let user = "";
-
-Swal.fire({
-    title:"Bienvenido al Chat System",
-    text:"Ingresa tu nombre",
-    input:"text",
-    allowOutsideClick:false
-}).then((result) => {
-    user = result.value;
-    document.getElementById("username").innerHTML = `Estas conectado como: <strong>${user}</strong>`;
-})
-
 const chatForm = document.getElementById("chatForm");
 chatForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const message = {
-        author:user,
+        author:document.getElementById("correo").value,
         text:document.getElementById("messageChat").value
     }
     //enviar nuevo mensaje
