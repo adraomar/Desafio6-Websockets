@@ -12,9 +12,31 @@
 </div>
 
 <hr>
-<div id="productsContainer">
+<div id="productsContainer"></div>
 
+<hr>
+<div id="chatSystem">
+    <h1 class="h1 text-center">Chat System</h1>
+    <section class="container d-flex justify-content-center align-items-center py-3 my-3"
+        style="background-color: #eee;">
+        <div class="row g-1">
+            <div class="col-12">
+                <p id="username"></p>
+                <div id="chatContainer"></div>
+            </div>
+            <form id="chatForm">
+                <div class="col-12">
+                    <div class="input-group">
+                        <textarea id="messageChat" class="form-control" placeholder=""
+                            aria-label="Example text with button addon" aria-describedby="button-addon1"></textarea>
+                        <button class="btn btn-warning" type="submit" id="button-addon1">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
 </div>
+
 {{> importScripts}}
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/main.js"></script>

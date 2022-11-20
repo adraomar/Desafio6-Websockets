@@ -4,6 +4,7 @@ const path = require("path");
 const Contenedor = require("./managers/contenedorProductos");
 const { Server } = require("socket.io");
 
+const messages = [];
 const prodService = new Contenedor("productos.txt");
 const viewsFolder = path.join(__dirname, "views");
 const app = express();
@@ -33,6 +34,13 @@ io.on("connection", async (socket) => {
        const productos = await prodService.getAll();
        io.sockets.emit("productsAll", productos);
     });
+
+    socket.emit("srvMessage", messages);
+    socket.on("newMessage", (data) => {
+        messages.push(data);
+        // enviar a todos los clientes
+        io.sockets.emit("srvMessage", messages);
+    })
 })
 
 // RUTAS
